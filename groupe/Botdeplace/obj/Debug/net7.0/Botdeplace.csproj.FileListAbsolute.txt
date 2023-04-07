@@ -1,0 +1,17 @@
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\Botdeplace.exe
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\Botdeplace.deps.json
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\Botdeplace.runtimeconfig.json
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\Botdeplace.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\Botdeplace.pdb
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\bin\Debug\net7.0\BattleIA.Common.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.csproj.AssemblyReference.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.AssemblyInfoInputs.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.AssemblyInfo.cs
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.csproj.CoreCompileInputs.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.csproj.CopyComplete
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\refint\Botdeplace.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.pdb
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\Botdeplace.genruntimeconfig.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\Botdeplace\obj\Debug\net7.0\ref\Botdeplace.dll

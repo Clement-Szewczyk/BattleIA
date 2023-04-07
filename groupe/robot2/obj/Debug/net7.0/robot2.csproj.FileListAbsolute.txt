@@ -1,0 +1,17 @@
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.csproj.AssemblyReference.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.AssemblyInfoInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.AssemblyInfo.cs
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.csproj.CoreCompileInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\robot2.exe
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\robot2.deps.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\robot2.runtimeconfig.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\robot2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\robot2.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\bin\Debug\net7.0\BattleIA.Common.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.csproj.CopyComplete
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\refint\robot2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\robot2.genruntimeconfig.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\robot2\obj\Debug\net7.0\ref\robot2.dll

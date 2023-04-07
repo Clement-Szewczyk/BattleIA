@@ -1,0 +1,17 @@
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.csproj.AssemblyReference.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.AssemblyInfoInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.AssemblyInfo.cs
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.csproj.CoreCompileInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\explorateur2.exe
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\explorateur2.deps.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\explorateur2.runtimeconfig.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\explorateur2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\explorateur2.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\bin\Debug\net7.0\BattleIA.Common.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.csproj.CopyComplete
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\refint\explorateur2.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\explorateur2.genruntimeconfig.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\groupe\explorateur2\obj\Debug\net7.0\ref\explorateur2.dll

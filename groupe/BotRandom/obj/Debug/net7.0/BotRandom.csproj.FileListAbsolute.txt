@@ -1,0 +1,17 @@
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\bin\Debug\net7.0\BotRandom.exe
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\bin\Debug\net7.0\BotRandom.deps.json
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\bin\Debug\net7.0\BotRandom.runtimeconfig.json
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\bin\Debug\net7.0\BotRandom.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\bin\Debug\net7.0\BotRandom.pdb
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.csproj.AssemblyReference.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.AssemblyInfoInputs.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.AssemblyInfo.cs
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.csproj.CoreCompileInputs.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\refint\BotRandom.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.pdb
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.genruntimeconfig.cache
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\ADI2\info\battle_bot\BotRandom\obj\Debug\net7.0\ref\BotRandom.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\BotRandom\bin\Debug\net7.0\BattleIA.Common.dll
+C:\Users\Clément Szewczyk\doc\isen\ADIMAKER\adi2\info\battle_bot\BotRandom\obj\Debug\net7.0\BotRandom.csproj.CopyComplete
