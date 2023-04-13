@@ -1,5 +1,5 @@
 
-            Console.WriteLine("localenergy = " + localenergy);
+           /* Console.WriteLine("localenergy = " + localenergy);
             
             if (localenergy == 1 && murnord == 0 ){
                 localenergy = 0;
@@ -137,4 +137,4 @@
             else{
                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             
-            }
+            }*/

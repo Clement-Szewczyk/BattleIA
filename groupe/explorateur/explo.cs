@@ -247,12 +247,12 @@ namespace explorateur
                 if (posxMin > posX) {
                     
                     if(posyMin > posY && murest == 0){
-                            Console.WriteLine("Energie à l'est");
-                            localenergy = 3;
+                            Console.WriteLine("Energie au sud-est");
+                            localenergy = 5;
                         }
                         if(posyMin < posY && murouest == 0){
-                            Console.WriteLine("Energie à l'ouest");
-                            localenergy = 4;
+                            Console.WriteLine("Energie sud-ouest");
+                            localenergy = 6;
                         }
                     if (mursud == 1){
                         if (murest == 1){
@@ -273,13 +273,13 @@ namespace explorateur
                 
                 if (posxMin < posX) {
                     if (posyMin > posY) {
-                        Console.WriteLine("Energie à l'est");
-                        localenergy = 3;
+                        Console.WriteLine("Energie au nord-est");
+                        localenergy = 7;
                         
                     }
                     if (posyMin < posY) {
-                        Console.WriteLine("Energie à l'ouest");
-                        localenergy = 4;
+                        Console.WriteLine("Energie nord-ouest");
+                        localenergy = 8;
                         
                     }
                     if (murnord == 1){
@@ -312,69 +312,7 @@ namespace explorateur
                 }
             } else {
                 Console.WriteLine("PAS D'ENERGIE");
-            }
-              
-            
-           /* // MUR PLUS PROCHE
-            int murX = niveau; // position du mur en x
-            int murY = niveau; // position du mur en y
-            int distancemMIN = 100; // distance minimale entre le robot et le mur
-            int murXMIN = -1; // position x du mur le plus proche
-            int murYMIN = -1; // position y du mur le plus proche
-
-            // on parcourt le tableau position
-            for (int i = 0; i < position.GetLength(0); i++) {
-                for (int j = 0; j < position.GetLength(1); j++) {
-                    if (position[i, j] == 4) { // si on trouve un mur
-                        // on calcule la distance entre le mur et le robot
-                        int ecart2 = Math.Abs(i - murX) + Math.Abs(j - murY);
-                        Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + murX + ", " + murY + ") = " + ecart2);
-                        if (ecart2 < distancemMIN) { // si la distance est plus petite que la distance minimale
-                            distancemMIN = ecart2; // on met à jour la distance minimale
-                            murXMIN = i; // on met à jour la position x du mur le plus proche
-                            murYMIN = j; // on met à jour la position y du mur le plus proche
-                        }
-                    }
-                    
-                    
-                }
-            }
-
-            if (murXMIN != -1 && murYMIN != -1) {
-                
-                Console.WriteLine("La position la plus proche de (3, 3) est : (" + murXMIN + ", " + murYMIN + ")");
-                // Faire en sorte que le robot se dirige vers les coordonnées (posxMin, posyMin)
-                if (distancemMIN == 1){
-                    if (murXMIN > murX) {
-                        Console.WriteLine("MUR au nord");
-                        mur2 = 1;
-                        return;
-                    }
-                    if (murXMIN < murX) {
-                        Console.WriteLine("MUR au sud");
-                        mur2=2;
-                        return;
-                    }
-                    if (murXMIN == murX){
-                        if (murYMIN > murY) {
-                            Console.WriteLine("MUR à l'ouest");
-                            mur2 = 4;
-                            return;
-                        }
-                        if (murYMIN < murY) {
-                            Console.WriteLine("MUR à l'est");
-                            mur2 = 3;
-                            return;
-                        }
-                    }
-                }
-            } else {
-                Console.WriteLine("ERREUR2");
-            }*/
-
-            
-
-            
+            }       
         }
 
 
@@ -419,6 +357,7 @@ namespace explorateur
 
             Console.WriteLine("localenergy = " + localenergy);
             
+            // PAS D'ENERGIE AUTOUR
             if (localenergy == 0){
                 if (murnord == 1){
                     if (murest == 0){
@@ -470,19 +409,15 @@ namespace explorateur
                         return BotHelper.ActionMove(MoveDirection.West);
                     }
                 }
-                else{
-                    return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-                
-                } 
-            }
-
-
-           /* if (localenergy == 1 && murnord == 0 ){
+            } 
+            // ENERGIE AU NORD
+            if (localenergy == 1 && murnord == 0 ){
                 localenergy = 0;
                 Console.WriteLine(" direction nord");
                 return BotHelper.ActionMove(MoveDirection.North);
                 
-            } 
+            }
+            // ENERGIE AU NORD MAIS MUR AU NORD 
             if (localenergy ==1 && murnord == 1){
 
                if (murest == 0){
@@ -498,12 +433,14 @@ namespace explorateur
                else{
                     return BotHelper.ActionMove(MoveDirection.South);
                }
-            }
+            } 
+            // ENERGIE AU SUD
             if (localenergy == 2 && mursud == 0 ){
                 localenergy = 0;
                 Console.WriteLine("direction sud");
                 return BotHelper.ActionMove(MoveDirection.South);
             }
+            // ENERGIE AU SUD MAIS MUR AU SUD
             if (localenergy == 2 && mursud == 1){
                 if (murest == 0){
                      localenergy = 0;
@@ -519,32 +456,36 @@ namespace explorateur
                     return BotHelper.ActionMove(MoveDirection.North);
                 }
             }
+            // ENERGIE A L'OUEST
             if (localenergy == 4 && murouest == 0 ){
                 localenergy = 0;
                 Console.WriteLine(" direction ouest");
                 return BotHelper.ActionMove(MoveDirection.East);
             }
+            // ENERGIE A L'OUEST MAIS MUR A L'OUEST
             if (localenergy == 4 && murouest == 1){
-                if (mursud == 0){
-                     localenergy = 0;
-                     Console.WriteLine(" direction sud");
-                     return BotHelper.ActionMove(MoveDirection.South);
-                }
                 if (murnord == 0){
                      localenergy = 0;
                      Console.WriteLine("direction nord");
                      return BotHelper.ActionMove(MoveDirection.North);
                 }
+                if (mursud == 0){
+                     localenergy = 0;
+                     Console.WriteLine(" direction sud");
+                     return BotHelper.ActionMove(MoveDirection.South);
+                }
                 else{
                       return BotHelper.ActionMove(MoveDirection.West);
                 }
             }
+            // ENERGIE A L'EST
             if (localenergy == 3 && murest == 0 ){
                 localenergy = 0;
                 Console.WriteLine("direction est");
                 
                 return BotHelper.ActionMove(MoveDirection.West);
             }
+            // ENERGIE A L'EST MAIS MUR A L'EST
             if (localenergy == 3 && murest == 1){
                 if (mursud == 0){
                      localenergy = 0;
@@ -560,60 +501,73 @@ namespace explorateur
                     return BotHelper.ActionMove(MoveDirection.East);
                 }
             }
-            if (murnord == 1){
-                if (murest == 0){
-                    return BotHelper.ActionMove(MoveDirection.West);
-                }
-                if (murouest == 0){
-                    return BotHelper.ActionMove(MoveDirection.East);
-                }
-                if (murest == 1 || murouest == 1){
-                    return BotHelper.ActionMove(MoveDirection.South);
-                }
-                else{
-                    return BotHelper.ActionMove(MoveDirection.South);
-                }
-            }
-            if (mursud == 1){
-                if (murest == 0){
-                    return BotHelper.ActionMove(MoveDirection.West);
-                }
-                if (murouest == 0){
-                    return BotHelper.ActionMove(MoveDirection.East);
-                }
-                if (murest == 1 || murouest == 1){
+            // ENERGIE AU NORD-EST 
+
+            if (localenergy == 7){
+                if (murnord == 0){
+                    Console.WriteLine("direction nord");
                     return BotHelper.ActionMove(MoveDirection.North);
                 }
-                else{
-                    return BotHelper.ActionMove(MoveDirection.North);
+                if (murest == 0){
+                    Console.WriteLine("direction Est");
+                    return BotHelper.ActionMove(MoveDirection.West);
                 }
-            }
-            if (murest == 1){
                 if (mursud == 0){
+                    Console.WriteLine("direction sud");
+                    return BotHelper.ActionMove(MoveDirection.South);
+                }
+            }
+
+            // ENERGIE AU NORD-OUEST
+            if (localenergy == 8){
+                if (murnord == 0){
+                    Console.WriteLine("direction nord");
+                    return BotHelper.ActionMove(MoveDirection.North);
+                }
+                if (murouest == 0){
+                    Console.WriteLine("direction ouest");
+                    return BotHelper.ActionMove(MoveDirection.East);
+                }
+                if (mursud == 0){
+                    Console.WriteLine("direction sud");
+                    return BotHelper.ActionMove(MoveDirection.South);
+                }
+            }
+
+            // ENERGIE AU SUD-EST
+
+            if (localenergy == 5){
+                if (murest == 0){
+                    Console.WriteLine("direction est");
+                    return BotHelper.ActionMove(MoveDirection.West);
+                }
+                if (mursud == 0){
+                    Console.WriteLine("direction sud");
                     return BotHelper.ActionMove(MoveDirection.South);
                 }
                 if (murnord == 0){
+                    Console.WriteLine("direction nord");
                     return BotHelper.ActionMove(MoveDirection.North);
                 }
-                else{
-                    return BotHelper.ActionMove(MoveDirection.East);
-                }
             }
-            if (murouest == 1){
+
+            // ENERGIE AU SUD-OUEST
+
+            if (localenergy == 6){
                 if (mursud == 0){
+                    Console.WriteLine("direction sud");
                     return BotHelper.ActionMove(MoveDirection.South);
                 }
+                if (murouest == 0){
+                    Console.WriteLine("direction ouest");
+                    return BotHelper.ActionMove(MoveDirection.East);
+                }
                 if (murnord == 0){
+                    Console.WriteLine("direction nord");
                     return BotHelper.ActionMove(MoveDirection.North);
                 }
-                else{
-                    return BotHelper.ActionMove(MoveDirection.West);
-                }
-            }
-            else{
-               return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-            
-            }*/
+            }            
+            return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
 
             
 

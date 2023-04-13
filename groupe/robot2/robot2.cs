@@ -41,6 +41,8 @@ namespace robot2
         UInt16 murest;
         UInt16 murouest;
         UInt16 murpos;
+        
+        UInt16 nb = 0;
 
         int mur;
         int doublemur = 0;
@@ -146,6 +148,20 @@ namespace robot2
                 }
                 Console.WriteLine();
             }
+            
+            // donne le nombre de répétition de la valeur 3 (ennemi) dans le tableau tab
+            for (int i = 0; i < distance; i++)
+            {
+                for (int j = 0; j < distance; j++)
+                {
+                    if (tab[i, j] == 3)
+                    {
+                        nb++;
+                    }
+                }
+            }
+
+            Console.WriteLine(nb);
             Console.WriteLine("--------------------------------");
             //affichage du tableau
             for (int i = 0; i < distance; i++)
@@ -300,6 +316,7 @@ namespace robot2
             }
         }
 
+
         // ****************************************************************************************************
         /// On doit effectuer une action
         public byte[] GetAction()
@@ -329,13 +346,12 @@ namespace robot2
                     return BotHelper.ActionCloak(currentinvisibility);
                 }
                 // oui, il reste de l'invisibilité
-
                 // On réinitialise notre flag
                 hasBeenHit = false;
                 // Puis on déplace fissa le bot, au hazard...
-                //return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-                // Déplacement du bot au nord
-                return BotHelper.ActionMove(MoveDirection.South);
+                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+                
+
             /*
                 Explications :
                     rnd.Next(1, 5)   : tire un nombre aléatoire entre 1 (inclus) et 5 (exclu), donc 1, 2, 3 ou 4
@@ -343,6 +359,18 @@ namespace robot2
                     sachant que 1 = North, 2 = West, 3 = South et 4 = East
                  */
             }
+             // Tir dans la direction sud
+            if (nb > 1)
+            {
+                return BotHelper.ActionShoot((MoveDirection)rnd.Next(1, 5));
+            }
+
+            // 
+            // On réinitialise notre flag
+            hasBeenHit = false;
+            // Puis on déplace fissa le bot, au hazard...
+            return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+
 
             // S'il n'y a pas de bouclier actif, on en active un
             if (currentShieldLevel == 0)

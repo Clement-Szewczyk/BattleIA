@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\ADI2\\info\\battle_bot\\BotRandom\\BotRandom.csproj",
+      "projectUniqueName": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\BotRandom\\BotRandom.csproj",
       "projectName": "BotRandom",
-      "projectPath": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\ADI2\\info\\battle_bot\\BotRandom\\BotRandom.csproj",
+      "projectPath": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\BotRandom\\BotRandom.csproj",
       "packagesPath": "C:\\Users\\Clément Szewczyk\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\ADI2\\info\\battle_bot\\BotRandom\\obj\\",
+      "outputPath": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\BotRandom\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Clément Szewczyk\\AppData\\Roaming\\NuGet\\NuGet.Config",

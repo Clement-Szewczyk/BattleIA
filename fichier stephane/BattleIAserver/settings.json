@@ -3,7 +3,7 @@
   "DelayBetweenEachBotTurn": 500,
   "MapWidth": 20,
   "MapHeight": 20,
-  "MapPercentWall": 10,
+  "MapPercentWall": 20,
   "MapPercentEnergy": 10,
   "EnergyStart": 100,
   "EnergyLostByTurn": 1,
