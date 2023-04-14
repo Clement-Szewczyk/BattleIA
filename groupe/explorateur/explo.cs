@@ -504,13 +504,14 @@ namespace explorateur
             // ENERGIE AU NORD-EST 
 
             if (localenergy == 7){
-                if (murnord == 0){
-                    Console.WriteLine("direction nord");
-                    return BotHelper.ActionMove(MoveDirection.North);
-                }
+                
                 if (murest == 0){
                     Console.WriteLine("direction Est");
                     return BotHelper.ActionMove(MoveDirection.West);
+                }
+                if (murnord == 0){
+                    Console.WriteLine("direction nord");
+                    return BotHelper.ActionMove(MoveDirection.North);
                 }
                 if (mursud == 0){
                     Console.WriteLine("direction sud");
@@ -520,13 +521,13 @@ namespace explorateur
 
             // ENERGIE AU NORD-OUEST
             if (localenergy == 8){
-                if (murnord == 0){
-                    Console.WriteLine("direction nord");
-                    return BotHelper.ActionMove(MoveDirection.North);
-                }
                 if (murouest == 0){
                     Console.WriteLine("direction ouest");
                     return BotHelper.ActionMove(MoveDirection.East);
+                }
+                if (murnord == 0){
+                    Console.WriteLine("direction nord");
+                    return BotHelper.ActionMove(MoveDirection.North);
                 }
                 if (mursud == 0){
                     Console.WriteLine("direction sud");
@@ -554,13 +555,13 @@ namespace explorateur
             // ENERGIE AU SUD-OUEST
 
             if (localenergy == 6){
-                if (mursud == 0){
-                    Console.WriteLine("direction sud");
-                    return BotHelper.ActionMove(MoveDirection.South);
-                }
                 if (murouest == 0){
                     Console.WriteLine("direction ouest");
                     return BotHelper.ActionMove(MoveDirection.East);
+                }
+                if (mursud == 0){
+                    Console.WriteLine("direction sud");
+                    return BotHelper.ActionMove(MoveDirection.South);
                 }
                 if (murnord == 0){
                     Console.WriteLine("direction nord");

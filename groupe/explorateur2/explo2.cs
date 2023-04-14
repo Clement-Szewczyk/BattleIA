@@ -31,9 +31,9 @@ namespace explorateur
         UInt16 energiebase = 100;
         UInt16 critiquenergie = 30;
        
-        UInt16 scanlevel;
-        UInt16[,] tab = new UInt16[scanlevel, scanlevel];
-        UInt16[,] position = new UInt16[scanlevel, scanlevel];
+        
+        
+        List<MoveDirection> chemin = new List<MoveDirection>();
 
         // ****************************************************************************************************
         // Ne s'exécute qu'une seule fois au tout début
@@ -84,28 +84,15 @@ namespace explorateur
                 // La toute première fois, le bot fait un scan d'une surface de 20 cases autour de lui
                 return 3;
             }
-            if (nbtour % 2 == 0 && energie > critiquenergie)
-            {
-                return 5;
-            }
-            else if (energie < critiquenergie)
+            // variable qui contient le taille de chemin 
+            if (chemin.Count == 0)
             {
                 return 3;
             }
-            else
-            {
-                return 3;
-            }
-            /*
-            if (nbtour % 2 != 0 && energie > critiquenergie)
-            {
-                return 3;
-            }
-            else
-            {
-                return 1;
-            }
-            */
+           else{
+             // ne scanne rien
+            return 0;
+           }
             
         }
         
@@ -115,98 +102,185 @@ namespace explorateur
 
         public void AreaInformation(byte distance, byte[] informations)
         {  
-            scanlevel = distance;
+            
+            UInt16[,] tab = new UInt16[distance, distance];
+            UInt16[,] position = new UInt16[distance, distance];
             
             // Ici, on ne fait rien avec cette information...
             // on l'affiche juste dans la console...
             // C'est dommage... ;)
-            Console.WriteLine($"Area: {distance}");
-            int index = 0;
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
+            
+            // si c'est un scan de plus  1 case
+            if (distance > 1){
+                Console.WriteLine($"Area: {distance}");
+                int index = 0;
+                for (int i = 0; i < distance; i++)
                 {
-                    //Console.Write(informations[index++]);
-                    switch ((CaseState)informations[index++])
+                    for (int j = 0; j < distance; j++)
                     {
-                        case CaseState.Empty: 
-                            Console.Write("."); 
-                            tab[i, j] = 1;
-                            break;
-                        case CaseState.Energy:
-                            Console.Write("L"); 
-                            tab[i, j] = 2;
-                            break;
-                        case CaseState.Ennemy:
-                            Console.Write("E");
-                            tab[i, j] = 3;
-                            break;
-                        case CaseState.Wall: 
-                            Console.Write("|"); 
-                            tab[i, j] = 4;
-                            break;
-                    }
-                }
-               Console.WriteLine();
-            }
-            Console.WriteLine("--------------------------------");
-            //affichage du tableau
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
-                {
-                    Console.Write(tab[i, j]);
-                }
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("--------------------------------");
-
-           
-            niveau = (distance - 1) / 2;
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
-                {
-                   if (tab[i,j] == 2){
-                       position[i,j] = 2;
-                       
-                   }
-                    else if (tab[i,j] == 4){
-                          position[i,j] = 4;
-                     }
-                   else{
-                        position[i,j] = 0;    
-                   }
-                }
-            }
-
-            // ENERGIE PLUS PROCHE
-            int posX = niveau; // position du robot en x
-            int posY = niveau; // position du robot en y
-            int distanceMin = 100; // distance minimale entre le robot et le 2
-            int posxMin = -1; // position x du 2 le plus proche
-            int posyMin = -1; // position y du 2 le plus proche
-
-            // on parcourt le tableau position
-            for (int i = 0; i < position.GetLength(0); i++) {
-                for (int j = 0; j < position.GetLength(1); j++) {
-                    if (position[i, j] == 2) { // si on trouve un 2
-                        // on calcule la distance entre le 2 et le robot
-                        int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
-                       // Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
-                        if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
-                            distanceMin = ecart; // on met à jour la distance minimale
-                            posxMin = i; // on met à jour la position x du 2 le plus proche
-                            posyMin = j; // on met à jour la position y du 2 le plus proche
+                        //Console.Write(informations[index++]);
+                        switch ((CaseState)informations[index++])
+                        {
+                            case CaseState.Empty: 
+                                Console.Write("."); 
+                                tab[i, j] = 1;
+                                break;
+                            case CaseState.Energy:
+                                Console.Write("L"); 
+                                tab[i, j] = 2;
+                                break;
+                            case CaseState.Ennemy:
+                                Console.Write("E");
+                                tab[i, j] = 3;
+                                break;
+                            case CaseState.Wall: 
+                                Console.Write("|"); 
+                                tab[i, j] = 4;
+                                break;
                         }
+                    }
+                Console.WriteLine();
+                }
+                Console.WriteLine("--------------------------------");
+            /* //affichage du tableau
+                for (int i = 0; i < distance; i++)
+                {
+                    for (int j = 0; j < distance; j++)
+                    {
+                        Console.Write(tab[i, j]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("--------------------------------");*/
+
+            
+                niveau = (distance - 1) / 2;
+                for (int i = 0; i < distance; i++)
+                {
+                    for (int j = 0; j < distance; j++)
+                    {
+                    if (tab[i,j] == 2){
+                        position[i,j] = 2;
                         
                     }
-                    
-                    
+                        else if (tab[i,j] == 4){
+                            position[i,j] = 4;
+                        }
+                    else{
+                            position[i,j] = 0;    
+                    }
+                    }
+                }
+
+                // ENERGIE PLUS PROCHE
+                int posX = niveau; // position du robot en x
+                int posY = niveau; // position du robot en y
+                int distanceMin = 100; // distance minimale entre le robot et le 2
+                int posxMin = -1; // position x du 2 le plus proche
+                int posyMin = -1; // position y du 2 le plus proche
+
+                // on parcourt le tableau position
+                for (int i = 0; i < position.GetLength(0); i++) {
+                    for (int j = 0; j < position.GetLength(1); j++) {
+                        if (position[i, j] == 2) { // si on trouve un 2
+                            // on calcule la distance entre le 2 et le robot
+                            int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
+                        // Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
+                            if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
+                                distanceMin = ecart; // on met à jour la distance minimale
+                                posxMin = i; // on met à jour la position x du 2 le plus proche
+                                posyMin = j; // on met à jour la position y du 2 le plus proche
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                }
+
+                // Génération d'une liste de déplacements pour aller vers le 2 le plus proche 
+                // (on suppose que le robot est au centre du tableau)
+                chemin.Clear();
+                if (posxMin != -1 && posyMin != -1) {
+                    // on se déplace en x
+                    if (posxMin > posX) {
+                        for (int i = 0; i < posxMin - posX; i++) {
+                            chemin.Add(MoveDirection.South);
+                        }
+                    }
+                    else if (posxMin < posX) {
+                        for (int i = 0; i < posX - posxMin; i++) {
+                            chemin.Add(MoveDirection.North);
+                        }
+                    }
+                    // on se déplace en y
+                    if (posyMin > posY) {
+                        for (int i = 0; i < posyMin - posY; i++) {
+                            chemin.Add(MoveDirection.West);
+                        }
+                    }
+                    else if (posyMin < posY) {
+                        for (int i = 0; i < posY - posyMin; i++) {
+                            chemin.Add(MoveDirection.East);
+                        }
+                    }
+                }
+                else {
+                    // on ne trouve pas de 2, on va donc chercher un 4
+                    // on parcourt le tableau position
+                    for (int i = 0; i < position.GetLength(0); i++) {
+                        for (int j = 0; j < position.GetLength(1); j++) {
+                            if (position[i, j] == 4) { // si on trouve un 4
+                                // on calcule la distance entre le 4 et le robot
+                                int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
+                                //Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
+                                if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
+                                    distanceMin = ecart; // on met à jour la distance minimale
+                                    posxMin = i; // on met à jour la position x du 4 le plus proche
+                                    posyMin = j; // on met à jour la position y du 4 le plus proche
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
+            else{
 
+                Console.WriteLine($"Area: {distance}");
+                int index = 0;
+                for (int i = 0; i < distance; i++)
+                {
+                    for (int j = 0; j < distance; j++)
+                    {
+                        //Console.Write(informations[index++]);
+                        switch ((CaseState)informations[index++])
+                        {
+                            case CaseState.Empty: 
+                                Console.Write("."); 
+                                tab[i, j] = 1;
+                                break;
+                            case CaseState.Energy:
+                                Console.Write("L"); 
+                                tab[i, j] = 2;
+                                break;
+                            case CaseState.Ennemy:
+                                Console.Write("E");
+                                tab[i, j] = 3;
+                                break;
+                            case CaseState.Wall: 
+                                Console.Write("|"); 
+                                tab[i, j] = 4;
+                                break;
+                        }
+                    }
+                Console.WriteLine();
+                }
+                Console.WriteLine("--------------------------------");
+                
+            }
+        }
 
             
 
@@ -216,8 +290,7 @@ namespace explorateur
            
             
 
-            
-        }
+
 
 
 
@@ -225,9 +298,24 @@ namespace explorateur
         // ****************************************************************************************************
         /// On doit effectuer une action
         public byte[] GetAction()
-        {
+        {   
+            // aficher la liste Chemin
+            Console.WriteLine("Chemin : ");
+            foreach (MoveDirection direction in chemin) {
+                Console.Write(direction + " ");
+            }
+            // lire la liste chemin et effectuer l'action correspondante
+            if (chemin.Count > 0) {
+                Console.WriteLine("direction de liste : ");
+                MoveDirection direction = chemin[0];
+                chemin.RemoveAt(0);
+                return BotHelper.ActionMove(direction);
+            }
+            else {
+                Console.WriteLine("direction aléatoire : ");
+                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+            }
             
-            return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
      
             
         }

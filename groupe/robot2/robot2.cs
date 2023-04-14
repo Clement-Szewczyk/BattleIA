@@ -332,13 +332,13 @@ namespace robot2
                     return BotHelper.ActionShield(currentShieldLevel);
                 }
                 // oui, il reste du bouclier actif
-
+                if (nb)
                 // On réinitialise notre flag
                 hasBeenHit = false;
                 // Puis on déplace fissa le bot, au hazard...
                 return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
 
-                // Le bot a-t-il encore l'invisibilité ?
+                /* Le bot a-t-il encore l'invisibilité ?
                 if (currentinvisibility == 0)
                 {
                     // NON ! On s'empresse de le réactiver de suite !
@@ -350,7 +350,7 @@ namespace robot2
                 hasBeenHit = false;
                 // Puis on déplace fissa le bot, au hazard...
                 return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-                
+    
 
             /*
                 Explications :
@@ -359,8 +359,23 @@ namespace robot2
                     sachant que 1 = North, 2 = West, 3 = South et 4 = East
                  */
             }
+            if (hasBeenHit == false && nb >= 2) 
+            {
+            // Le bot a-t-il encore de l'invisibilité ?
+                if (currentinvisibility == 0)
+                {
+                    // NON ! On s'empresse de l'activer de suite !
+                    currentinvisibility = (byte)rnd.Next(1, 9);
+                    return BotHelper.ActionCloak(currentinvisibility);
+                }
+                // oui, il reste de l'invisibilité
+                // On réinitialise notre flag
+                // Puis on déplace fissa le bot, au hazard...
+                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+              
+            }
              // Tir dans la direction sud
-            if (nb > 1)
+            if (nb >= 2)
             {
                 return BotHelper.ActionShoot((MoveDirection)rnd.Next(1, 5));
             }
