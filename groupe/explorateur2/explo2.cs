@@ -30,6 +30,11 @@ namespace explorateur
         UInt16 energie;
         UInt16 energiebase = 100;
         UInt16 critiquenergie = 30;
+
+        UInt16 murnord;
+        UInt16 mursud;
+        UInt16 murest;
+        UInt16 murouest;
        
         
         
@@ -111,6 +116,12 @@ namespace explorateur
             // C'est dommage... ;)
             
             // si c'est un scan de plus  1 case
+
+            
+            
+            
+           
+
             if (distance > 1){
                 Console.WriteLine($"Area: {distance}");
                 int index = 0;
@@ -142,6 +153,30 @@ namespace explorateur
                 Console.WriteLine();
                 }
                 Console.WriteLine("--------------------------------");
+                niveau = (distance - 1) / 2;
+                murnord = 0;
+                mursud = 0;
+                murest = 0;
+                murouest = 0;
+                if (tab[niveau-1,niveau ] == 4){
+                    murnord = 1;
+                    Console.WriteLine("MUR au nord");
+                }
+                if (tab[niveau+1,niveau ] == 4){
+                    mursud = 1;
+                    Console.WriteLine("MUR au sud");
+                }
+                if (tab[niveau,niveau+1 ] == 4){
+                    murest = 1;
+                    Console.WriteLine("MUR à l'est");
+                }
+                if (tab[niveau,niveau-1 ] == 4){
+                    murouest = 1;
+                    Console.WriteLine("MUR à l'ouest");
+                }
+                else{
+                    Console.WriteLine("pas de mur");
+                }
             /* //affichage du tableau
                 for (int i = 0; i < distance; i++)
                 {
@@ -205,24 +240,108 @@ namespace explorateur
                 if (posxMin != -1 && posyMin != -1) {
                     // on se déplace en x
                     if (posxMin > posX) {
-                        for (int i = 0; i < posxMin - posX; i++) {
-                            chemin.Add(MoveDirection.South);
+                        if (mursud == 0){
+                            for (int i = 0; i < posxMin - posX; i++) {
+                                chemin.Add(MoveDirection.South);
+                            }
                         }
+                        else if(mursud == 1){
+                            if (murest == 0){
+                                for (int i = 0; i < posxMin - posX; i++) {
+                                    chemin.Add(MoveDirection.West);
+                                }
+                            }
+                            else if (murouest == 1){
+                                for (int i = 0; i < posxMin - posX; i++) {
+                                    chemin.Add(MoveDirection.East);
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posxMin - posX; i++) {
+                                    chemin.Add(MoveDirection.North);
+                                }
+                            }
+                            
+                        }
+                        
                     }
                     else if (posxMin < posX) {
-                        for (int i = 0; i < posX - posxMin; i++) {
-                            chemin.Add(MoveDirection.North);
+                        
+                        if (murnord == 0){
+                            for (int i = 0; i < posX - posxMin; i++) {
+                                chemin.Add(MoveDirection.North);
+                            }
+                        }
+                        else if (murnord == 1){
+                            if (murest == 0){
+                                for (int i = 0; i < posX - posxMin; i++) {
+                                    chemin.Add(MoveDirection.West);
+                                }
+                            }
+                            else if (murouest == 0){
+                                for (int i = 0; i < posX - posxMin; i++) {
+                                    chemin.Add(MoveDirection.East);
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posX - posxMin; i++) {
+                                    chemin.Add(MoveDirection.South);
+                                }
+                            }
                         }
                     }
                     // on se déplace en y
                     if (posyMin > posY) {
-                        for (int i = 0; i < posyMin - posY; i++) {
-                            chemin.Add(MoveDirection.West);
+                        
+                        if (murest == 0)
+                        {
+                            for (int i = 0; i < posyMin - posY; i++) {
+                                chemin.Add(MoveDirection.West);
+                            }
                         }
+                        else if (murest == 1){
+                            if (mursud == 0){
+                                for (int i = 0; i < posyMin - posY; i++) {
+                                    chemin.Add(MoveDirection.South);
+                                }
+                            }
+                            else if (murnord == 1){
+                                for (int i = 0; i < posyMin - posY; i++) {
+                                    chemin.Add(MoveDirection.North);
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posyMin - posY; i++) {
+                                    chemin.Add(MoveDirection.East);
+                                }
+                            }
+                        }
+                        
+                            
+                        
                     }
                     else if (posyMin < posY) {
-                        for (int i = 0; i < posY - posyMin; i++) {
-                            chemin.Add(MoveDirection.East);
+                        if (murouest == 0){
+                            for (int i = 0; i < posY - posyMin; i++) {
+                                chemin.Add(MoveDirection.East);
+                            }
+                        }
+                        else if (murouest == 1){
+                            if (mursud == 0){
+                                for (int i = 0; i < posY - posyMin; i++) {
+                                    chemin.Add(MoveDirection.South);
+                                }
+                            }
+                            else if (murnord == 0){
+                                for (int i = 0; i < posY - posyMin; i++) {
+                                    chemin.Add(MoveDirection.North);
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posY - posyMin; i++) {
+                                    chemin.Add(MoveDirection.West);
+                                }
+                            }
                         }
                     }
                 }
@@ -245,6 +364,10 @@ namespace explorateur
                     }
 
                 }
+
+
+
+
             }
             else{
 

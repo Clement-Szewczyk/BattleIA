@@ -32,20 +32,20 @@ namespace robot2
         int niveau;
         UInt16 localenergy;
         UInt16 energie;
-        UInt16 energiebase = 100;
+        //UInt16 energiebase = 100;
         UInt16 critiquenergie = 30;
-        UInt16 mur2;
+        //UInt16 mur2;
 
         UInt16 murnord;
         UInt16 mursud;
         UInt16 murest;
         UInt16 murouest;
-        UInt16 murpos;
+        //UInt16 murpos;
         
         UInt16 nb = 0;
 
-        int mur;
-        int doublemur = 0;
+        //int mur;
+        //int doublemur = 0;
 
         // ****************************************************************************************************
         // Ne s'exécute qu'une seule fois au tout début
@@ -239,7 +239,11 @@ namespace robot2
                 Console.WriteLine("MUR à l'ouest");
             }
             else{
-                murpos = 0;
+                murnord = 0;
+                mursud = 0;
+                murest = 0;
+                murouest = 0;
+
             }
             if (posxMin != -1 && posyMin != -1) {
                 
@@ -328,15 +332,30 @@ namespace robot2
                 if (currentShieldLevel == 0)
                 {
                     // NON ! On s'empresse d'en réactiver un de suite !
-                    currentShieldLevel = (byte)rnd.Next(1, 9);
+                    currentShieldLevel = 5;
                     return BotHelper.ActionShield(currentShieldLevel);
                 }
                 // oui, il reste du bouclier actif
-                if (nb)
-                // On réinitialise notre flag
-                hasBeenHit = false;
-                // Puis on déplace fissa le bot, au hazard...
-                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+                 
+                if (nb>=2) 
+                {
+                    // Tir dans une direction au hasard
+                    return BotHelper.ActionShoot((MoveDirection)rnd.Next(1, 5));
+
+                }
+
+                if(hasBeenHit == false)
+                {
+                    if (nb <=1)
+                    {
+                        // Puis on déplace fissa le bot, au hazard...
+                        return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+   
+                    } 
+                }
+
+
+
 
                 /* Le bot a-t-il encore l'invisibilité ?
                 if (currentinvisibility == 0)
@@ -359,13 +378,13 @@ namespace robot2
                     sachant que 1 = North, 2 = West, 3 = South et 4 = East
                  */
             }
-            if (hasBeenHit == false && nb >= 2) 
+            else if (hasBeenHit == false && nb >= 2) 
             {
             // Le bot a-t-il encore de l'invisibilité ?
                 if (currentinvisibility == 0)
                 {
                     // NON ! On s'empresse de l'activer de suite !
-                    currentinvisibility = (byte)rnd.Next(1, 9);
+                    currentinvisibility = 1 ;
                     return BotHelper.ActionCloak(currentinvisibility);
                 }
                 // oui, il reste de l'invisibilité
@@ -374,18 +393,6 @@ namespace robot2
                 return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
               
             }
-             // Tir dans la direction sud
-            if (nb >= 2)
-            {
-                return BotHelper.ActionShoot((MoveDirection)rnd.Next(1, 5));
-            }
-
-            // 
-            // On réinitialise notre flag
-            hasBeenHit = false;
-            // Puis on déplace fissa le bot, au hazard...
-            return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-
 
             // S'il n'y a pas de bouclier actif, on en active un
             if (currentShieldLevel == 0)
@@ -536,7 +543,8 @@ namespace robot2
                 }
             }
             else{
-               return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+                return BotHelper.ActionNone();
+                //return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             
             }
             // Voici d'autres exemples d'actions possibles
