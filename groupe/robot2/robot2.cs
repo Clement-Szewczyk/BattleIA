@@ -38,6 +38,14 @@ namespace robot2
         UInt16 mursud;
         UInt16 murest;
         UInt16 murouest;
+
+         UInt16 enneminord;
+        UInt16 ennemisud;
+        UInt16 ennemiest;
+        UInt16 ennemiouest;
+
+
+        
         
         UInt16 ennemi = 1;
 
@@ -65,13 +73,13 @@ namespace robot2
             {
                 currentShieldLevel = shieldLevel;
                 hasBeenHit = true;
-                Console.Writeline("Je me suis pris un dégât et j'ai perdu 1 niveau de bouclier!");
+                //Console.Writeline("Je me suis pris un dégât et j'ai perdu 1 niveau de bouclier!");
             }
             if(currentinvisibility != cloakLevel)
             {
                 currentinvisibility = cloakLevel;
                 hasBeenHit = true ;
-                Console.Writeline("Je me suis pris un dégât et je n'ai plus d'invisibilité!")
+                //Console.Writeline("Je me suis pris un dégât et je n'ai plus d'invisibilité!")
             }
 
 
@@ -402,7 +410,7 @@ namespace robot2
                         else if(ennemisud == 0){
                             if (ennemiest == 1){
                                 for (int i = 0; i < posenxMin - posX; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.west);
+                                    return BotHelper.ActionShoot(MoveDirection.West);
                                 }
                             }
                             else if (ennemiouest == 1){
@@ -459,11 +467,10 @@ namespace robot2
                                 return BotHelper.ActionShoot(MoveDirection.West);
                             }
                         }
-                        else if (mennemiest == 0){
+                        else if (ennemiest == 0){
                             if (ennemisud == 1){
                                 for (int i = 0; i < posenyMin - posY; i++) {
                                     return BotHelper.ActionShoot(MoveDirection.South);
-                                    
                                 }
                             }
                             else if (enneminord == 1){
@@ -484,26 +491,27 @@ namespace robot2
                     else if (posenyMin < posY) {
                         if (ennemiouest == 1){
                             for (int i = 0; i < posY - posenyMin; i++) {
-                                chemin.Add(MoveDirection.East);
+                                return BotHelper.ActionShoot(MoveDirection.East);
                             }
                         }
-                        else if (murouest == 1){
-                            else if (murnord == 0){
+                        else if (ennemiouest == 0){
+                            if (enneminord == 1){
                                 
-                                 for (int i = 0; i < posY - posyMin; i++) {
-                                    chemin.Add(MoveDirection.South);
+                                 for (int i = 0; i < posY - posenyMin; i++) {
+                                    return BotHelper.ActionShoot(MoveDirection.South);
                                 }
                             }
                             else{
-                                for (int i = 0; i < posY - posyMin; i++) {
-                                    chemin.Add(MoveDirection.West);
+                                for (int i = 0; i < posY - posenyMin; i++) {
+                                    return BotHelper.ActionNone();
                                 }
                             }
                         }
                     }
                 }
                 else {
-                    // on ne trouve pas de 2, on va donc chercher un 4
+                    return true;
+                    /*/ on ne trouve pas de 2, on va donc chercher un 4
                     // on parcourt le tableau position
                     for (int i = 0; i < position.GetLength(0); i++) {
                         for (int j = 0; j < position.GetLength(1); j++) {
@@ -513,12 +521,12 @@ namespace robot2
                                 //Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
                                 if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
                                     distanceMin = ecart; // on met à jour la distance minimale
-                                    posxMin = i; // on met à jour la position x du 4 le plus proche
-                                    posyMin = j; // on met à jour la position y du 4 le plus proche
+                                    posenxMin = i; // on met à jour la position x du 4 le plus proche
+                                    posenyMin = j; // on met à jour la position y du 4 le plus proche
                                 }
                             }
                         }
-                    }
+                    }*/
 
                 }
 
@@ -526,7 +534,7 @@ namespace robot2
 
                 if(hasBeenHit == false)
                 {
-                    if (ennemi =1)
+                    if (ennemi ==1)
                     {
                         // Puis on déplace fissa le bot, au hazard...
                         return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));

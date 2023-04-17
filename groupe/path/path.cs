@@ -102,7 +102,7 @@ namespace explorateur
         {       
             UInt16[,] tab = new UInt16[distance, distance];
             UInt16[,] position = new UInt16[distance, distance];
-             Console.WriteLine($"Area: {distance}");
+                Console.WriteLine($"Area: {distance}");
                 int index = 0;
                 for (int i = 0; i < distance; i++)
                 {
@@ -213,7 +213,7 @@ namespace explorateur
                     }
                 }
 
-               
+                
                     
            
         }
