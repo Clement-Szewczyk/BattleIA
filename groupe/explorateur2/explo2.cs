@@ -92,7 +92,7 @@ namespace explorateur
             // variable qui contient le taille de chemin 
             if (chemin.Count == 0)
             {
-                return 3;
+                return 5;
             }
            else{
              // ne scanne rien
@@ -175,7 +175,7 @@ namespace explorateur
                     Console.WriteLine("MUR à l'ouest");
                 }
                 else{
-                    Console.WriteLine("pas de mur");
+                    Console.WriteLine("Evaluation des mur fini");
                 }
             /* //affichage du tableau
                 for (int i = 0; i < distance; i++)
@@ -272,15 +272,16 @@ namespace explorateur
                                 chemin.Add(MoveDirection.North);
                             }
                         }
+                        
                         else if (murnord == 1){
                             if (murest == 0){
                                 for (int i = 0; i < posX - posxMin; i++) {
-                                    chemin.Add(MoveDirection.West);
+                                    chemin.Add(MoveDirection.East);
                                 }
                             }
                             else if (murouest == 0){
                                 for (int i = 0; i < posX - posxMin; i++) {
-                                    chemin.Add(MoveDirection.East);
+                                    chemin.Add(MoveDirection.West);
                                 }
                             }
                             else{
@@ -303,6 +304,7 @@ namespace explorateur
                             if (mursud == 0){
                                 for (int i = 0; i < posyMin - posY; i++) {
                                     chemin.Add(MoveDirection.South);
+                                    
                                 }
                             }
                             else if (murnord == 1){
@@ -400,6 +402,9 @@ namespace explorateur
                     }
                 Console.WriteLine();
                 }
+
+               
+                
                 Console.WriteLine("--------------------------------");
                 
             }
