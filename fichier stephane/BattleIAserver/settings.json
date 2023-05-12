@@ -1,10 +1,10 @@
 ﻿{
   "ServerPort": 4226,
-  "DelayBetweenEachBotTurn": 500,
+  "DelayBetweenEachBotTurn": 200,
   "MapWidth": 20,
   "MapHeight": 20,
-  "MapPercentWall": 9,
-  "MapPercentEnergy": 15,
+  "MapPercentWall": 10,
+  "MapPercentEnergy": 20,
   "EnergyStart": 100,
   "EnergyLostByTurn": 1,
   "EnergyLostByShield": 1,

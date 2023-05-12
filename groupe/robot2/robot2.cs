@@ -5,11 +5,13 @@ Il possède une gestion minimale de son bouclier de protection
 
  */
 
+ 
+
 using System; 
 using BattleIA;
 
 
-namespace robot2
+namespace robot
 {
     public class robot2
     {
@@ -43,10 +45,6 @@ namespace robot2
         UInt16 ennemisud;
         UInt16 ennemiest;
         UInt16 ennemiouest;
-
-
-        
-        
         UInt16 ennemi = 1;
 
 
@@ -121,9 +119,15 @@ namespace robot2
             UInt16[,] tab = new UInt16[distance, distance];
             UInt16[,] position = new UInt16[distance, distance];
             UInt16[,] mur = new UInt16[distance, distance];
-            // Ici, on ne fait rien avec cette information...
-            // on l'affiche juste dans la console...
-            // C'est dommage... ;)
+            int posX = niveau; // position du robot en x
+            int posY = niveau; // position du robot en y
+            int posxMin = -1; // position x du 2 le plus proche
+            int posyMin = -1; // position y du 2 le plus proche
+            int posenxMin = -1 ;
+            int posenyMin = -1 ;
+            int distanceenMin = 100; // distance minimale entre le robot et le 3
+            int distanceMin = 5 ;
+
             Console.WriteLine($"Area: {distance}");
             int index = 0;
             for (int i = 0; i < distance; i++)
@@ -153,20 +157,12 @@ namespace robot2
                 }
                 Console.WriteLine();
 
-                // ENERGIE PLUS PROCHE
-                int posX = niveau; // position du robot en x
-                int posY = niveau; // position du robot en y
-                int distanceenMin = 100; // distance minimale entre le robot et le 3
-                int posenxMin = -1; // position x du 3 le plus proche
-                int posenyMin = -1; // position y du 3 le plus proche
-
                 // on parcourt le tableau position
-                for (int i = 0; i < position.GetLength(0); i++) {
+                for (int k = 0; k < position.GetLength(0); k++) {
                     for (int j = 0; j < position.GetLength(1); j++) {
-                        if (position[i, j] == 3) { // si on trouve un 3
+                        if (position[k, j] == 3) { // si on trouve un 3
                             // on calcule la distance entre le 3 et le robot
                             int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
-                        // Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
                             if (ecart < distanceenMin) { // si la distance est plus petite que la distance minimale
                                 distanceenMin = ecart; // on met à jour la distance minimale
                                 posenxMin = i; // on met à jour la position x du 3 le plus proche
@@ -224,12 +220,6 @@ namespace robot2
                    }
                 }
             }
-            // ENERGIE PLUS PROCHE
-            int posX = niveau; // position du robot en x
-            int posY = niveau; // position du robot en y
-            int distanceMin = 100; // distance minimale entre le robot et le 2
-            int posxMin = -1; // position x du 2 le plus proche
-            int posyMin = -1; // position y du 2 le plus proche
 
             // on parcourt le tableau position
             for (int i = 0; i < position.GetLength(0); i++) {
@@ -237,7 +227,6 @@ namespace robot2
                     if (position[i, j] == 2) { // si on trouve un 2
                         // on calcule la distance entre le 2 et le robot
                         int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
-                       // Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
                         if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
                             distanceMin = ecart; // on met à jour la distance minimale
                             posxMin = i; // on met à jour la position x du 2 le plus proche
@@ -278,6 +267,7 @@ namespace robot2
 
             }
             
+            //ennemi
             enneminord = 0;
             ennemisud = 0;
             ennemiest = 0;
@@ -306,9 +296,116 @@ namespace robot2
                 ennemiouest = 0;
 
             }
+            if (posenxMin != -1 && posenyMin != -1) {
+                    // on se déplace en x
+                    if (posenxMin > posX) {
+                        if (ennemisud == 1){
+                            for (int i = 0; i < posenxMin - posX; i++) {
+                                ennemi = 2;
+                            }
+                        }
+                        else if(ennemisud == 0){
+                            if (ennemiest == 1){
+                                for (int i = 0; i < posenxMin - posX; i++) {
+                                    ennemi = 4;
+                                }
+                            }
+                            else if (ennemiouest == 1){
+                                for (int i = 0; i < posenxMin - posX; i++) {
+                                    ennemi = 3;
+                                }
+                            }
+                            
+                            else{
+                                for (int i = 0; i < posenxMin - posX; i++) {
+                                ennemi = 0 ;
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                    else if (posenxMin < posX) {
+                        
+                        if (enneminord == 1){
+                            for (int i = 0; i < posX - posenxMin; i++) {
+                                ennemi = 1;
+                            }
+                        }
+                        
+                        else if (enneminord == 0){
+                            if (ennemiest == 1){
+                                for (int i = 0; i < posX - posenxMin; i++) {
+                                    ennemi=3;
+                                }
+                            }
+                            else if (ennemiouest == 1){
+                                for (int i = 0; i < posX - posenxMin; i++) {
+                                    ennemi=4;
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posX - posenxMin; i++) {
+                                    ennemi=0;
+                                }
+                            }
+                        }
+                    }
+                    // on se déplace en y
+                    if (posenyMin > posY) {
+                        
+                        if (ennemiest == 1)
+                        {
+                            for (int i = 0; i < posenyMin - posY; i++) {
+                                ennemi=4;
+                            }
+                        }
+                        else if (ennemiest == 0){
+                            if (ennemisud == 1){
+                                for (int i = 0; i < posenyMin - posY; i++) {
+                                    ennemi=2;
+                                }
+                            }
+                            else if (enneminord == 1){
+                                for (int i = 0; i < posenyMin - posY; i++) {
+                                    ennemi=1;
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posenyMin - posY; i++) {
+                                    ennemi =0;
+                                }
+                            }
+                        }
+                        
+                            
+                        
+                    }
+                    else if (posenyMin < posY) {
+                        if (ennemiouest == 1){
+                            for (int i = 0; i < posY - posenyMin; i++) {
+                                ennemi = 3;
+                            }
+                        }
+                        else if (ennemiouest == 0){
+                            if (enneminord == 1){
+                                
+                                 for (int i = 0; i < posY - posenyMin; i++) {
+                                    ennemi=2;
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < posY - posenyMin; i++) {
+                                    ennemi=0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
             if (posxMin != -1 && posyMin != -1) {
                 
-                //Console.WriteLine("La position la plus proche de (3, 3) est : (" + posxMin + ", " + posyMin + ")");
                 // Faire en sorte que le robot se dirige vers les coordonnées (posxMin, posyMin)
                 if (posxMin > posX) {
                     
@@ -376,9 +473,11 @@ namespace robot2
                        
                     }
                 }
-            } else {
+            } 
+            else {
                 Console.WriteLine("PAS D'ENERGIE");
             }
+
         }
 
 
@@ -399,140 +498,26 @@ namespace robot2
                 // oui, il reste du bouclier actif
                  
 
-                if (posenxMin != -1 && posenyMin != -1) {
-                    // on se déplace en x
-                    if (posenxMin > posX) {
-                        if (ennemisud == 1){
-                            for (int i = 0; i < posenxMin - posX; i++) {
-                                return BotHelper.ActionShoot(MoveDirection.South);
-                            }
-                        }
-                        else if(ennemisud == 0){
-                            if (ennemiest == 1){
-                                for (int i = 0; i < posenxMin - posX; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.West);
-                                }
-                            }
-                            else if (ennemiouest == 1){
-                                for (int i = 0; i < posenxMin - posX; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.East);
-                                }
-                            }
-                            /*else if (enneminord == 1){
-                                for (int i = 0; i < posenxMin - posX; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.North);
-                                }
-                            }*/
-                            else{
-                                for (int i = 0; i < posenxMin - posX; i++) {
-                                return BotHelper.ActionNone();
-                                }
-                            }
-                            
-                        }
-                        
-                    }
-                    else if (posenxMin < posX) {
-                        
-                        if (enneminord == 1){
-                            for (int i = 0; i < posX - posenxMin; i++) {
-                                return BotHelper.ActionShoot(MoveDirection.North);
-                            }
-                        }
-                        
-                        else if (enneminord == 0){
-                            if (ennemiest == 1){
-                                for (int i = 0; i < posX - posenxMin; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.East);
-                                }
-                            }
-                            else if (ennemiouest == 1){
-                                for (int i = 0; i < posX - posenxMin; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.West);
-                                }
-                            }
-                            else{
-                                for (int i = 0; i < posX - posenxMin; i++) {
-                                    return BotHelper.ActionNone();
-                                }
-                            }
-                        }
-                    }
-                    // on se déplace en y
-                    if (posenyMin > posY) {
-                        
-                        if (ennemiest == 1)
-                        {
-                            for (int i = 0; i < posenyMin - posY; i++) {
-                                return BotHelper.ActionShoot(MoveDirection.West);
-                            }
-                        }
-                        else if (ennemiest == 0){
-                            if (ennemisud == 1){
-                                for (int i = 0; i < posenyMin - posY; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.South);
-                                }
-                            }
-                            else if (enneminord == 1){
-                                for (int i = 0; i < posenyMin - posY; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.North);
-                                }
-                            }
-                            else{
-                                for (int i = 0; i < posenyMin - posY; i++) {
-                                    return BotHelper.ActionNone();
-                                }
-                            }
-                        }
-                        
-                            
-                        
-                    }
-                    else if (posenyMin < posY) {
-                        if (ennemiouest == 1){
-                            for (int i = 0; i < posY - posenyMin; i++) {
-                                return BotHelper.ActionShoot(MoveDirection.East);
-                            }
-                        }
-                        else if (ennemiouest == 0){
-                            if (enneminord == 1){
-                                
-                                 for (int i = 0; i < posY - posenyMin; i++) {
-                                    return BotHelper.ActionShoot(MoveDirection.South);
-                                }
-                            }
-                            else{
-                                for (int i = 0; i < posY - posenyMin; i++) {
-                                    return BotHelper.ActionNone();
-                                }
-                            }
-                        }
-                    }
+                Console.WriteLine("ennemi : " + ennemi); 
+
+                if (ennemi==1) 
+                {
+                    return BotHelper.ActionShoot(MoveDirection.North);
                 }
-                else {
-                    return true;
-                    /*/ on ne trouve pas de 2, on va donc chercher un 4
-                    // on parcourt le tableau position
-                    for (int i = 0; i < position.GetLength(0); i++) {
-                        for (int j = 0; j < position.GetLength(1); j++) {
-                            if (position[i, j] == 4) { // si on trouve un 4
-                                // on calcule la distance entre le 4 et le robot
-                                int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
-                                //Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
-                                if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
-                                    distanceMin = ecart; // on met à jour la distance minimale
-                                    posenxMin = i; // on met à jour la position x du 4 le plus proche
-                                    posenyMin = j; // on met à jour la position y du 4 le plus proche
-                                }
-                            }
-                        }
-                    }*/
-
+                else if (ennemi==2)
+                {
+                    return BotHelper.ActionShoot(MoveDirection.South);
                 }
-
-                
-
-                if(hasBeenHit == false)
+                else if (ennemi==3)
+                {
+                    return BotHelper.ActionShoot(MoveDirection.East);
+                }
+                else if (ennemi==4)
+                {
+                    return BotHelper.ActionShoot(MoveDirection.West);
+                }
+ 
+                else if(hasBeenHit == false)
                 {
                     if (ennemi ==1)
                     {
@@ -542,31 +527,8 @@ namespace robot2
                     } 
                 }
 
-
-
-
-                /* Le bot a-t-il encore l'invisibilité ?
-                if (currentinvisibility == 0)
-                {
-                    // NON ! On s'empresse de le réactiver de suite !
-                    currentinvisibility = (byte)rnd.Next(1, 9);
-                    return BotHelper.ActionCloak(currentinvisibility);
-                }
-                // oui, il reste de l'invisibilité
-                // On réinitialise notre flag
-                hasBeenHit = false;
-                // Puis on déplace fissa le bot, au hazard...
-                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-    
-
-            /*
-                Explications :
-                    rnd.Next(1, 5)   : tire un nombre aléatoire entre 1 (inclus) et 5 (exclu), donc 1, 2, 3 ou 4
-                    (MoveDirection)x : converti 'x' en type MoveDirection
-                    sachant que 1 = North, 2 = West, 3 = South et 4 = East
-                 */
             }
-            else if (hasBeenHit == false && ennemi >= 2) 
+            else if (hasBeenHit == false && ennemi >= 1) 
             {
             // Le bot a-t-il encore de l'invisibilité ?
                 if (currentinvisibility == 0)
@@ -732,7 +694,6 @@ namespace robot2
             }
             else{
                 return BotHelper.ActionNone();
-                //return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             
             }
             // Voici d'autres exemples d'actions possibles

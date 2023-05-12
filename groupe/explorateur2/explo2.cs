@@ -24,18 +24,26 @@ namespace explorateur
         UInt16 currentShieldLevel;
         // variable qui permet de savoir si le bot a été touché ou non
         bool hasBeenHit;
-        UInt16 nbtour;
+        int nbtour;
         int niveau;
-        UInt16 localenergy;
-        UInt16 energie;
-        UInt16 energiebase = 100;
-        UInt16 critiquenergie = 30;
+        int localenergy;
+        int energie;
+        int critiquenergie = 30;
 
-        UInt16 murnord;
-        UInt16 mursud;
-        UInt16 murest;
-        UInt16 murouest;
-       
+        
+
+        int murnord;
+        int mursud;
+        int murest;
+        int murouest;
+
+        byte save_distance;
+        byte[] save_informations;
+        bool aleatoire = false;
+
+        bool detectenemy = false;
+
+        
         
         
         List<MoveDirection> chemin = new List<MoveDirection>();
@@ -86,12 +94,17 @@ namespace explorateur
             if (isFirstTime)
             {
                 isFirstTime = false;
-                // La toute première fois, le bot fait un scan d'une surface de 20 cases autour de lui
+                
                 return 3;
             }
             // variable qui contient le taille de chemin 
             if (chemin.Count == 0)
             {
+                
+                return 2;
+            }
+            if (aleatoire == true){
+                
                 return 5;
             }
            else{
@@ -107,9 +120,8 @@ namespace explorateur
 
         public void AreaInformation(byte distance, byte[] informations)
         {  
-            
-            UInt16[,] tab = new UInt16[distance, distance];
-            UInt16[,] position = new UInt16[distance, distance];
+            int[,] tab = new int[distance, distance];
+            int[,] position = new int[distance, distance];
             
             // Ici, on ne fait rien avec cette information...
             // on l'affiche juste dans la console...
@@ -118,8 +130,9 @@ namespace explorateur
             // si c'est un scan de plus  1 case
 
             
+            save_distance = distance;
             
-            
+            save_informations = informations;
            
 
             if (distance > 1){
@@ -143,6 +156,7 @@ namespace explorateur
                             case CaseState.Ennemy:
                                 Console.Write("E");
                                 tab[i, j] = 3;
+                                detectenemy = true;
                                 break;
                             case CaseState.Wall: 
                                 Console.Write("|"); 
@@ -234,6 +248,35 @@ namespace explorateur
                     }
                 }
 
+                //Regarde ce qui a autour de l'énergie
+                if (posxMin != -1 && posyMin != -1) {
+                    if (position[posxMin + 1, posyMin] == 4) {
+                        mursud = 1;
+                    }
+                    if (position[posxMin - 1, posyMin] == 4) {
+                        murnord = 1;
+                    }
+                    if (position[posxMin, posyMin + 1] == 4) {
+                        murest = 1;
+                    }
+                    if (position[posxMin, posyMin - 1] == 4) {
+                        murouest = 1;
+                    }
+                }
+                else{
+                    Console.WriteLine("Pas d'énergie");
+                }
+
+                if (mursud == 1 && murest == 1 && murouest == 1 && murnord == 1){
+                    Console.WriteLine("MUR PARTOUT");
+                    // surprime l'énergie du tableau position et refait une recherche 
+                    position[posxMin, posyMin] = 0;
+                    AreaInformation(save_distance, save_informations);
+                }
+                else{
+                    Console.WriteLine("Pas de mur partout");
+                }
+
                 // Génération d'une liste de déplacements pour aller vers le 2 le plus proche 
                 // (on suppose que le robot est au centre du tableau)
                 chemin.Clear();
@@ -292,7 +335,7 @@ namespace explorateur
                         }
                     }
                     // on se déplace en y
-                    if (posyMin > posY) {
+                    else if (posyMin > posY) {
                         
                         if (murest == 0)
                         {
@@ -348,22 +391,7 @@ namespace explorateur
                     }
                 }
                 else {
-                    // on ne trouve pas de 2, on va donc chercher un 4
-                    // on parcourt le tableau position
-                    for (int i = 0; i < position.GetLength(0); i++) {
-                        for (int j = 0; j < position.GetLength(1); j++) {
-                            if (position[i, j] == 4) { // si on trouve un 4
-                                // on calcule la distance entre le 4 et le robot
-                                int ecart = Math.Abs(i - posX) + Math.Abs(j - posY);
-                                //Console.WriteLine("Distance entre (" + i + ", " + j + ") et (" + posX + ", " + posY + ") = " + ecart);
-                                if (ecart < distanceMin) { // si la distance est plus petite que la distance minimale
-                                    distanceMin = ecart; // on met à jour la distance minimale
-                                    posxMin = i; // on met à jour la position x du 4 le plus proche
-                                    posyMin = j; // on met à jour la position y du 4 le plus proche
-                                }
-                            }
-                        }
-                    }
+                    Console.WriteLine("Pas de 2 à proximité");
 
                 }
 
@@ -409,24 +437,22 @@ namespace explorateur
                 
             }
         }
-
-            
-
-
-              
-            
-           
-            
-
-
-
-
-
-
+        
         // ****************************************************************************************************
         /// On doit effectuer une action
         public byte[] GetAction()
         {   
+           
+           /*if (detectenemy){
+                
+                if (currentShieldLevel == 0)
+                {
+                    // NON ! On s'empresse d'en réactiver un de suite !
+                    currentShieldLevel = 1;
+                    return BotHelper.ActionShield(currentShieldLevel);
+                }
+           }*/
+            
             // aficher la liste Chemin
             Console.WriteLine("Chemin : ");
             foreach (MoveDirection direction in chemin) {
@@ -441,6 +467,7 @@ namespace explorateur
             }
             else {
                 Console.WriteLine("direction aléatoire : ");
+                aleatoire = true;
                 return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             }
             
