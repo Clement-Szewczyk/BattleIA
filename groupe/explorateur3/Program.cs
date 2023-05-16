@@ -1,4 +1,4 @@
-﻿namespace explorateur;
+﻿namespace explorateur3;
 using BattleIA;
 
 using System.Net.WebSockets;

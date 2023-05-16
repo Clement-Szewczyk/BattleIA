@@ -9,7 +9,7 @@ using System;
 using BattleIA;
 
 
-namespace explorateur
+namespace pathfinder
 {   
 
     public class ligne{
@@ -20,7 +20,7 @@ namespace explorateur
 
     }
 
-    public class explo2
+    public class path
     {
 
         // Pour faire des tirages de nombres aléatoires
@@ -33,17 +33,20 @@ namespace explorateur
         UInt16 currentShieldLevel;
         // variable qui permet de savoir si le bot a été touché ou non
         bool hasBeenHit;
-        UInt16 nbtour;
-        int niveau;
-        UInt16 energie;
-        UInt16 critiquenergie = 30;
+        
 
-        byte save_distance;
 
+
+
+        // ****************************************************************************************************
+        // Tableau qui stocke les cases visitées
         bool[,] tabvisit;
 
+        // Liste des déplacements à effectuer
         List<MoveDirection> deplacements = new List<MoveDirection>();
-
+        // variable qui servira a caluler le niveau du scan 
+        int niveau ;
+        // Variable qui permetra de savoir s'il des énergie
         bool rien = false;
         
 
@@ -56,7 +59,7 @@ namespace explorateur
             isFirstTime = true;
             currentShieldLevel = 0;
             hasBeenHit = false;
-            nbtour = 0;
+;
             
         }
 
@@ -64,8 +67,7 @@ namespace explorateur
         /// Réception de la mise à jour des informations du bot
         public void StatusReport(UInt16 turn, UInt16 energy, UInt16 shieldLevel, UInt16 cloakLevel)
         {   
-            nbtour = turn;
-            energie = energy;
+
             // Si le niveau du bouclier a baissé, c'est que l'on a reçu un coup
             if (currentShieldLevel != shieldLevel)
             {
@@ -86,17 +88,17 @@ namespace explorateur
                 // La toute première fois, le bot fait un scan d'une surface de 20 cases autour de lui
                 return 3;
             }
+            // Scan de 5 s'il n'y a pas d'énergie de détecté
             if (rien == true){
                 rien = false;
                 return 5;
             }
-
+            // Scan de 2 quand on a fini la liste
             if (deplacements.Count == 0){
-                return 3;
+                return 2;
             }
             else{
              // ne scanne rien
-             Console.WriteLine("PASSSSSSSSSSSSSSSSSSs");
             return 0;
            }
             
@@ -108,8 +110,9 @@ namespace explorateur
 
         public void AreaInformation(byte distance, byte[] informations)
         {       
-            save_distance = distance;
+            // On initialise le tableau des cases visitées
             bool[,] tabvisit = new bool[distance, distance];
+            // On deux tableaux pour stocker les informations du scan
             UInt16[,] tab = new UInt16[distance, distance];
             UInt16[,] position = new UInt16[distance, distance];
             Console.WriteLine($"Area: {distance}");
@@ -154,21 +157,10 @@ namespace explorateur
 
             if (nbenergie >=1){
                 Console.WriteLine("--------------------------------");
+                // On calcul le niveau du scan
                 niveau = (distance - 1) / 2;
-                /* //affichage du tableau
-                    for (int i = 0; i < distance; i++)
-                    {
-                        for (int j = 0; j < distance; j++)
-                        {
-                            Console.Write(tab[i, j]);
-                        }
-                        Console.WriteLine();
-                    }
-
-                    Console.WriteLine("--------------------------------");*/
-
-                
-                niveau = (distance - 1) / 2;
+    
+                // On remplie le tableau position
                 for (int i = 0; i < distance; i++)
                 {
                     for (int j = 0; j < distance; j++)
@@ -188,8 +180,9 @@ namespace explorateur
                 }
                 
 
-                    Console.WriteLine("--------------------------------");
-                // ENERGIE PLUS PROCHE
+                Console.WriteLine("--------------------------------");
+                // ****************************************************************************************************
+                // Recherche de l'énergie la plus proche
                 int posX = niveau; // position du robot en x
                 int posY = niveau; // position du robot en y
                 int distanceMin = 100; // distance minimale entre le robot et le 2
@@ -207,22 +200,16 @@ namespace explorateur
                                 distanceMin = ecart; // on met à jour la distance minimale
                                 posxMin = i; // on met à jour la position x du 2 le plus proche
                                 posyMin = j; // on met à jour la position y du 2 le plus proche
-                            }
-                            
-                        }
-                            
-                            
+                            }   
+                        }         
                     }
                 }
-
-                // Génère une liste de déplacement possible
 
                 Console.WriteLine("Distance minimale = " + distanceMin);
                 Console.WriteLine("Position du 2 le plus proche = (" + posxMin + ", " + posyMin + ")");
                 Console.WriteLine("--------------------------------");
 
-               
-                
+                // ****************************************************************************************************
                 int limite = 0;
                 
                 // vide la liste de déplacement
@@ -231,131 +218,163 @@ namespace explorateur
                 while (limite<distanceMin){
                     // Analyse déplacement vers le SUD
                     if (posxMin > posX) {
-                        //SUD
+                        // On vérifie s'il y a des murs autour de la position du robot
                         if (tabvisit[posX+1,posY] == true){
                             if (tabvisit[posX, posY+1 ] == true){
-                                Console.WriteLine("Est_bloqué");
-                                deplacements.Add(MoveDirection.East);
-                                posY = posY - 1;
-                                tabvisit[posX, posY] = true;
-                            }
-                            else if(tabvisit[posX, posY-1 ] == true){
-                                Console.WriteLine("Ouest_bloqué");
-                                deplacements.Add(MoveDirection.West);
-                                posY = posY + 1;
-                                tabvisit[posX, posY] = true;
+                                if(tabvisit[posX, posY-1 ] == true){
+                                    Console.WriteLine("SUD-EST-OUEST_bloqué");
+                                    posX = posX - 1;
+                                    tabvisit[posX, posY] = true;
+                                    // Déplacement vers le nord
+                                    deplacements.Add(MoveDirection.North);
+                                    break;
+                                    
+                                } 
+                                else{
+                                    Console.WriteLine("SUD-EST_bloqué");
+                                    posY = posY - 1;
+                                    tabvisit[posX, posY] = true;
+                                    // Déplacement vers l'ouest
+                                    deplacements.Add(MoveDirection.East);
+                                    break;
+                                    
+                                }
                             }
                             else{
-                                Console.WriteLine("Sud_bloqué");
-                                deplacements.Add(MoveDirection.North);
-                                posX = posX - 1;
+                                Console.WriteLine("SUD_bloqué");
+                                posY = posY + 1;
                                 tabvisit[posX, posY] = true;
+                                // Déplacement vers l'est
+                                deplacements.Add(MoveDirection.West);
+                                break;
+                                
                             }
                         }
                         else{
-                            deplacements.Add(MoveDirection.South);
                             posX = posX + 1;
                             tabvisit[posX, posY] = true;
+                            // Déplacement vers le sud
+                            deplacements.Add(MoveDirection.South);
+                            break;
+                            
                         }
                         
                     }
                     // Analyse déplacement vers le nord
                     if (posxMin < posX) {
-                        //NORD
-                        if (tabvisit[posX-1, posY]== true){
+                        // On vérifie s'il y a des murs autour de la position du robot
+                        if (tabvisit[posX-1,posY] == true){
                             if (tabvisit[posX, posY+1 ] == true){
-                                Console.WriteLine("Est_bloqué");
-                                deplacements.Add(MoveDirection.East);
-                                posY = posY - 1;
-                                tabvisit[posX, posY] = true;
-                            }
-                            else if(tabvisit[posX, posY-1 ] == true){
-                                Console.WriteLine("Ouest_bloqué");
-                                deplacements.Add(MoveDirection.West);
-                                posY = posY + 1;
-                                tabvisit[posX, posY] = true;
+                                if(tabvisit[posX, posY-1 ] == true){
+                                    Console.WriteLine("NORD-EST-OUEST_bloqué");
+                                    posX = posX - 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.South);
+                                    break;
+                                    
+                                } 
+                                else{
+                                    Console.WriteLine("NORD-EST_bloqué");
+                                    posY = posY - 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.East);
+                                    break;
+                                }
                             }
                             else{
-                                Console.WriteLine("Nord_bloqué");
-                                deplacements.Add(MoveDirection.South);
-                                posX = posX + 1;
+                                Console.WriteLine("NORD_bloqué");
+                                posY = posY + 1;
                                 tabvisit[posX, posY] = true;
+                                deplacements.Add(MoveDirection.West);
+                                break;
                             }
+                                
+                                
                         }
                         else{
-                            deplacements.Add(MoveDirection.North);
                             posX = posX - 1;
                             tabvisit[posX, posY] = true;
+                            deplacements.Add(MoveDirection.North);
+                            break;
                         }
+
                     }
                     // Analys déplacement vers l'Est
                     if (posyMin > posY) {
-                        //EST
-                        if(tabvisit[posX,posY+1] == true)
-                        {
-                            if (tabvisit[posX+1, posY ] == true){
-                                Console.WriteLine("Sud_bloqué");
-                                deplacements.Add(MoveDirection.North);
-                                posX = posX - 1;
-                                tabvisit[posX, posY] = true;
-                            }
-                            else if(tabvisit[posX-1, posY ] == true){
-                                Console.WriteLine("Nord_bloqué");
-                                deplacements.Add(MoveDirection.South);
-                                posX = posX + 1;
-                                tabvisit[posX, posY] = true;
+                        // On vérifie s'il y a des murs autour de la position du robot
+                        if (tabvisit[posX,posY+1] == true){
+                            if (tabvisit[posX-1, posY] == true){
+                                if(tabvisit[posX+1, posY ] == true){
+                                    Console.WriteLine("EST-NORD-SUD_bloqué");
+                                    posY = posY - 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.East);
+                                    break;
+                                } 
+                                else{
+                                    Console.WriteLine("EST-NORD_bloqué");
+                                    posX = posX + 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.South);
+                                    break;
+                                }
                             }
                             else{
-                                Console.WriteLine("Ouest_bloqué");
-                                Console.WriteLine("East2");
-                                deplacements.Add(MoveDirection.West);
-                                posY = posY +1;
+                                Console.WriteLine("EST_bloqué");
+                                posX = posX - 1;
                                 tabvisit[posX, posY] = true;
+                                deplacements.Add(MoveDirection.North);
+                                break;
                             }
                         }
                         else{
-                            Console.WriteLine("West2");
-                            deplacements.Add(MoveDirection.East);
-                            posY = posY - 1;
+                            posY = posY + 1;
                             tabvisit[posX, posY] = true;
+                            deplacements.Add(MoveDirection.West);
+                            break;
                         }
+
+                        
                     }
                     // Analyse déplacement vers l'Ouest
                     if (posyMin < posY) {
-                        //OUEST
-                        if(tabvisit[posX, posY-1 ] == true){
-                            if (tabvisit[posX+1, posY ] == true){
-                                Console.WriteLine("Sud_bloqué");
-                                deplacements.Add(MoveDirection.North);
-                                posX = posX - 1;
-                                tabvisit[posX, posY] = true;
-                            }
-                            else if(tabvisit[posX-1, posY ] == true){
-                                Console.WriteLine("Nord_bloqué");
-                                deplacements.Add(MoveDirection.South);
-                                posX = posX + 1;
-                                tabvisit[posX, posY] = true;
+                        // On vérifie s'il y a des murs autour de la position du robot
+                        if (tabvisit[posX,posY-1] == true){
+                            if (tabvisit[posX-1, posY] == true){
+                                if(tabvisit[posX+1, posY ] == true){
+                                    Console.WriteLine("OUEST-NORD-SUD_bloqué");
+                                    posY = posY + 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.West);
+                                    break;
+                                } 
+                                else{
+                                    Console.WriteLine("OUEST-NORD_bloqué");
+                                    posX = posX + 1;
+                                    tabvisit[posX, posY] = true;
+                                    deplacements.Add(MoveDirection.South);
+                                    break;
+                                }
                             }
                             else{
-                                Console.WriteLine("Ouest_bloqué");
-                                Console.WriteLine("East1");
-                                deplacements.Add(MoveDirection.West);
-                                posY = posY + 1;
+                                Console.WriteLine("OUEST_bloqué");
+                                posX = posX - 1;
                                 tabvisit[posX, posY] = true;
+                                deplacements.Add(MoveDirection.North);
+                                break;
                             }
                         }
                         else{
-                            Console.WriteLine("West1");
-                            deplacements.Add(MoveDirection.East);
                             posY = posY - 1;
                             tabvisit[posX, posY] = true;
+                            deplacements.Add(MoveDirection.East);
+                            break;
                         }
 
                     }
                     limite = limite + 1;
                 }
 
-                
                 Console.WriteLine("Liste des déplacements possibles :");
                 foreach (MoveDirection deplacement in deplacements) {
                     Console.WriteLine(deplacement);
@@ -369,7 +388,6 @@ namespace explorateur
             }
 
             //affichage du tableau des visites
-
             for (int i = 0; i < distance; i++)
             {
                 for (int j = 0; j < distance; j++)
@@ -395,7 +413,7 @@ namespace explorateur
         /// On doit effectuer une action
         public byte[] GetAction()
         {   
-           // lire la liste chemin et effectuer l'action correspondante
+           // Si la liste contient plus d'un élément
             if (deplacements.Count > 0) {
                 Console.WriteLine("direction de liste : ");
                 MoveDirection direction = deplacements[0];
@@ -403,15 +421,12 @@ namespace explorateur
                 return BotHelper.ActionMove(direction);
             }
             if (rien = true){
+                // On ne fait rien s'il n'y a pas d'énergie
                 return BotHelper.ActionNone();
             }
             else{
-                return BotHelper.ActionMove(MoveDirection.East);
+               return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             }
-            
-            
-     
-            
         }
    }    
 
