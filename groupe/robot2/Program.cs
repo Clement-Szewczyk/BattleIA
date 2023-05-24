@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 class Program
 {
     // Adresse du serveur, à changer si nécessaire
-    //private static string serverUrl = "ws://127.0.0.1:4226/bot";
-    private static string serverUrl = "ws://10.224.1.110:4226/bot"; //Stéphane
+    private static string serverUrl = "ws://127.0.0.1:4226/bot";
+    //private static string serverUrl = "ws://10.224.1.110:4226/bot"; //Stéphane
 
     // Identifiant du bot
     // https://www.guidgenerator.com/

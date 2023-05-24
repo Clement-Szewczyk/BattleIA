@@ -41,7 +41,7 @@ namespace robot
         UInt16 murest;
         UInt16 murouest;
 
-         UInt16 enneminord;
+        UInt16 enneminord;
         UInt16 ennemisud;
         UInt16 ennemiest;
         UInt16 ennemiouest;

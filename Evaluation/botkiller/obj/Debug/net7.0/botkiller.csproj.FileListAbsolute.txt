@@ -1,0 +1,17 @@
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.csproj.AssemblyReference.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.AssemblyInfoInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.AssemblyInfo.cs
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.csproj.CoreCompileInputs.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\botkiller.exe
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\botkiller.deps.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\botkiller.runtimeconfig.json
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\botkiller.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\botkiller.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\bin\Debug\net7.0\BattleIA.Common.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.csproj.CopyComplete
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\refint\botkiller.dll
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.pdb
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\botkiller.genruntimeconfig.cache
+C:\Users\Clément Szewczyk\Documents\GitHub\BattleIA\Evaluation\botkiller\obj\Debug\net7.0\ref\botkiller.dll

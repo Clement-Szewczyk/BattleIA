@@ -33,6 +33,8 @@ namespace pathfinder
         UInt16 currentShieldLevel;
         // variable qui permet de savoir si le bot a été touché ou non
         bool hasBeenHit;
+        // mémorisation du voile d'invisibilité
+        UInt16 currentinvisibility;
         
 
 
@@ -48,9 +50,7 @@ namespace pathfinder
         int niveau ;
         // Variable qui permetra de savoir s'il des énergie
         bool rien = false;
-        
-
-
+     
         // ****************************************************************************************************
         // Ne s'exécute qu'une seule fois au tout début
         // C'est ici qu'il faut initialiser le bot
@@ -59,7 +59,7 @@ namespace pathfinder
             isFirstTime = true;
             currentShieldLevel = 0;
             hasBeenHit = false;
-;
+            currentinvisibility = 0;
             
         }
 
@@ -73,8 +73,14 @@ namespace pathfinder
             {
                 currentShieldLevel = shieldLevel;
                 hasBeenHit = true;
+                //Console.Writeline("Je me suis pris un dégât et j'ai perdu 1 niveau de bouclier!");
             }
-           
+            if(currentinvisibility != cloakLevel)
+            {
+                currentinvisibility = cloakLevel;
+                hasBeenHit = true ;
+                //Console.Writeline("Je me suis pris un dégât et je n'ai plus d'invisibilité!");
+            }
         }
 
 
@@ -407,28 +413,84 @@ namespace pathfinder
         
             }
         }
+    
 
 
         // ****************************************************************************************************
-        /// On doit effectuer une action
+        /*/// On doit effectuer une action
         public byte[] GetAction()
         {   
+            // Si le bot vient d'être touché
+            if (hasBeenHit==true)
+            {
+                // Le bot a-t-il encore du bouclier ?
+                if (currentShieldLevel == 0)
+                {
+                    // NON ! On s'empresse d'en réactiver un de suite !
+                    currentShieldLevel = 5;
+                    return BotHelper.ActionShield(currentShieldLevel);
+                }
+                // oui, il reste du bouclier actif
+                else if (hasBeenHit == false) 
+                {
+                    // Le bot a-t-il encore de l'invisibilité ?
+                    if (currentinvisibility == 0)
+                    {
+                        // NON ! On s'empresse de l'activer de suite !
+                        currentinvisibility = 1 ;
+                        return BotHelper.ActionCloak(currentinvisibility);
+                    }
+                    // oui, il reste de l'invisibilité  
+                }
+                else {
+                    return BotHelper.ActionNone();
+                }
+            }
            // Si la liste contient plus d'un élément
-            if (deplacements.Count > 0) {
-                Console.WriteLine("direction de liste : ");
-                MoveDirection direction = deplacements[0];
-                deplacements.RemoveAt(0);
-                return BotHelper.ActionMove(direction);
+            else if (deplacements.Count > 0) {
+                    Console.WriteLine("direction de liste : ");
+                    MoveDirection direction = deplacements[0];
+                    deplacements.RemoveAt(0);
+                    return BotHelper.ActionMove(direction);
+                }
+                else if (rien = true){
+                    // On ne fait rien s'il n'y a pas d'énergie
+                    return BotHelper.ActionNone();
+                }
+                else{
+                   return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
+                }
+            }*/
+            public byte[] GetAction()
+            {
+                if (hasBeenHit==false)
+                    {
+                        if (currentinvisibility == 0)
+                        {
+                            currentinvisibility = 1;
+                            return BotHelper.ActionCloak(currentinvisibility);
+                        }
+                        else if (currentShieldLevel == 0)
+                        {
+                            currentShieldLevel = 5;
+                            return BotHelper.ActionShield(currentShieldLevel);
+                        }
+                    }
+                else if (deplacements.Count > 0)
+                {
+                    Console.WriteLine("Direction de liste : ");
+                    MoveDirection direction = deplacements[0];
+                    deplacements.RemoveAt(0);
+                    return BotHelper.ActionMove(direction);
+                }
+                else if (rien)
+                {
+                    return BotHelper.ActionNone();
+                }
+                
+                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
             }
-            if (rien = true){
-                // On ne fait rien s'il n'y a pas d'énergie
-                return BotHelper.ActionNone();
-            }
-            else{
-               return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-            }
-        }
-   }    
 
-}
+        }    
+    }
     

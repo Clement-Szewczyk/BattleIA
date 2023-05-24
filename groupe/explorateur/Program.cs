@@ -1,4 +1,4 @@
-﻿namespace explorateur;
+﻿namespace pathfinder;
 using BattleIA;
 
 using System.Net.WebSockets;
@@ -12,8 +12,8 @@ class Program
 
     // ****************************************************************************************************
     // Adresse du serveur, à changer si nécessaire
-    //private static string serverUrl = "ws://127.0.0.1:4226/bot";
-    private static string serverUrl = "ws://10.224.1.110:4226/bot"; //Stéphane
+    private static string serverUrl = "ws://127.0.0.1:4226/bot";
+    //private static string serverUrl = "ws://10.224.1.110:4226/bot"; //Stéphane
      //private static string serverUrl = "ws://10.224.1.6:4226/bot"; //Mathéo
 
 
@@ -25,7 +25,7 @@ class Program
     // Nom du bot
     private static string botName = "toto";
     // le code du bot
-    private static explo ia = new explo();
+    private static path ia = new path();
 
     static void Main(string[] args)
     {

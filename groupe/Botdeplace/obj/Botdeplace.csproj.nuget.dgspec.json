@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\adi2\\info\\battle_bot\\Botdeplace\\Botdeplace.csproj": {}
+    "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\Botdeplace\\Botdeplace.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\adi2\\info\\battle_bot\\Botdeplace\\Botdeplace.csproj": {
+    "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\Botdeplace\\Botdeplace.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\adi2\\info\\battle_bot\\Botdeplace\\Botdeplace.csproj",
+        "projectUniqueName": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\Botdeplace\\Botdeplace.csproj",
         "projectName": "Botdeplace",
-        "projectPath": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\adi2\\info\\battle_bot\\Botdeplace\\Botdeplace.csproj",
+        "projectPath": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\Botdeplace\\Botdeplace.csproj",
         "packagesPath": "C:\\Users\\Clément Szewczyk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Clément Szewczyk\\doc\\isen\\ADIMAKER\\adi2\\info\\battle_bot\\Botdeplace\\obj\\",
+        "outputPath": "C:\\Users\\Clément Szewczyk\\Documents\\GitHub\\BattleIA\\groupe\\Botdeplace\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Clément Szewczyk\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -55,16 +55,7 @@ namespace Botdeplace
         /// On nous demande la distance de scan que l'on veut effectuer
         public byte GetScanSurface()
         {
-            if (isFirstTime)
-            {
-                isFirstTime = false;
-                // La toute première fois, le bot fait un scan d'une surface de 20 cases autour de lui
-                return 20;
-            }
-            if (nbtour % 2 != 0)
-            {
-                return 3;
-            }
+            
             // Toutes les autres fois, le bot n'effectue aucun scan...
             return 0;
         }
@@ -136,58 +127,7 @@ namespace Botdeplace
         /// On doit effectuer une action
         public byte[] GetAction()
         {
-            // Si le bot vient d'être touché
-            if (hasBeenHit)
-            {
-                // Le bot a-t-il encore du bouclier ?
-                if (currentShieldLevel == 0)
-                {
-                    // NON ! On s'empresse d'en réactiver un de suite !
-                    currentShieldLevel = (byte)rnd.Next(1, 9);
-                    return BotHelper.ActionShield(currentShieldLevel);
-                }
-                // oui, il reste du bouclier actif
-
-                // On réinitialise notre flag
-                hasBeenHit = false;
-                // Puis on déplace fissa le bot, au hazard...
-                return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-                /*
-                Explications :
-                    rnd.Next(1, 5)   : tire un nombre aléatoire entre 1 (inclus) et 5 (exclu), donc 1, 2, 3 ou 4
-                    (MoveDirection)x : converti 'x' en type MoveDirection
-                    sachant que 1 = North, 2 = West, 3 = South et 4 = East
-                 */
-            }
-
-            // S'il n'y a pas de bouclier actif, on en active un
-            if (currentShieldLevel == 0)
-            {
-                currentShieldLevel = 1;
-                return BotHelper.ActionShield(currentShieldLevel);
-            }
-
-            // On déplace le bot au hazard
-            return BotHelper.ActionMove((MoveDirection)rnd.Next(1, 5));
-
-
-            // Voici d'autres exemples d'actions possibles
-            // -------------------------------------------
-
-            // Si on ne veut rien faire, passer son tour
-            // return BotHelper.ActionNone();
-
-            // Déplacement du bot au nord
-            // return BotHelper.ActionMove(MoveDirection.North);
-
-            // Activation d'un bouclier de protection de niveau 10 (peut encaisser 10 points de dégats)
-            // return BotHelper.ActionShield(10);
-
-            // Activation d'un voile d'invisibilité sur une surface de 15
-            // return BotHelper.ActionCloak(15);
-
-            // Tir dans la direction sud
-            // return BotHelper.ActionShoot(MoveDirection.South);
+            return BotHelper.ActionNone();
 
         }
 
